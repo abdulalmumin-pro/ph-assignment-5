@@ -7,30 +7,30 @@ interface TechnologiesProps {
 
 const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
   const technologies = use(technologiesPromise);
-  const [selectedTechs, setSelectedTechs] = useState<Itechnologies[]>([]);
+  const [selected, setSelected] = useState<Itechnologies[]>([]);
 
-  // Toggle technology selection (Add / Remove)
+  // technology selection Add / Remove
   const toggleSelect = (tech: Itechnologies) => {
-    const exists = selectedTechs.some((item) => item.name === tech.name);
+    const exists = selected.some((item) => item.name === tech.name);
     if (exists) {
-      setSelectedTechs((prev) => prev.filter((item) => item.name !== tech.name));
+      setSelected((prev) => prev.filter((item) => item.name !== tech.name));
     } else {
-      setSelectedTechs((prev) => [...prev, tech]);
+      setSelected((prev) => [...prev, tech]);
     }
   };
 
   // Remove single technology from stack
   const handleRemove = (techName: string) => {
-    setSelectedTechs((prev) => prev.filter((item) => item.name !== techName));
+    setSelected((prev) => prev.filter((item) => item.name !== techName));
   };
 
   // Clear all selected technologies
   const handleRemoveAll = () => {
-    setSelectedTechs([]);
+    setSelected([]);
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-8 py-8">
+    <section className="mx-auto max-w-7xl px-16 py-8">
       <div className="mb-8">
         <h2 className="text-3xl font-black text-gray-900">
           Explore the{" "}
@@ -49,7 +49,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
         {/* Technology Cards Grid (Takes up 3 columns) */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
           {technologies.map((technology) => {
-            const isSelected = selectedTechs.some(
+            const isSelected = selected.some(
               (item) => item.name === technology.name
             );
 
@@ -58,7 +58,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                 key={technology.name}
                 className={`flex min-h-[270px] flex-col rounded-2xl border bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
                   isSelected
-                    ? "border-[#FD5426] ring-1 ring-[#FD5426]"
+                    ? "border-red-500 ring-1 ring-red-500"
                     : "border-gray-200"
                 }`}
               >
@@ -107,7 +107,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                   onClick={() => toggleSelect(technology)}
                   className={`w-full rounded-lg py-2.5 text-xs font-semibold transition active:scale-[0.98] ${
                     isSelected
-                      ? "bg-gradient-to-r from-[#FD5426] to-[#C623AE] text-white hover:opacity-90"
+                      ? "bg-gray-900 bg-none text-red-500 hover:opacity-90"
                       : "bg-[#080D1D] text-white hover:bg-[#151b2e]"
                   }`}
                 >
@@ -123,18 +123,18 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
           <div className="sticky top-6 flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
             <h4 className="text-lg font-bold text-gray-900">Your Stack</h4>
             <p className="mb-6 text-xs text-gray-400">
-              {selectedTechs.length}{" "}
-              {selectedTechs.length === 1 ? "Technology" : "Technologies"} Selected
+              {selected.length}{" "}
+              {selected.length === 1 ? "Technology" : "Technologies"} Selected
             </p>
 
             {/* Selected Tech List */}
             <div className="mb-6 space-y-3 min-h-[100px]">
-              {selectedTechs.length === 0 ? (
+              {selected.length === 0 ? (
                 <p className="text-center py-8 text-xs text-gray-400 border border-dashed border-gray-200 rounded-xl">
                   No technologies selected yet.
                 </p>
               ) : (
-                selectedTechs.map((tech) => (
+                selected.map((tech) => (
                   <div
                     key={tech.name}
                     className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-2.5"
@@ -169,10 +169,10 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
             {/* Clear Button */}
             <button
               type="button"
-              disabled={selectedTechs.length === 0}
+              disabled={selected.length === 0}
               onClick={handleRemoveAll}
               className={`w-full rounded-xl border py-2.5 text-xs font-medium transition ${
-                selectedTechs.length > 0
+                selected.length > 0
                   ? "border-red-100 text-red-500 hover:bg-red-50 cursor-pointer"
                   : "border-gray-100 text-gray-300 cursor-not-allowed"
               }`}
