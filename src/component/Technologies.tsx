@@ -1,15 +1,52 @@
 import { use, useState } from "react";
+import type { ReactNode } from "react";
 import type { Itechnologies } from "../type/TechnologiesType";
+
+//specific icons
+import {
+  SiReact,
+  SiVuedotjs,
+  SiSvelte,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiPostgresql,
+  SiRedis,
+  SiJavascript,
+  SiTypescript,
+  SiTailwindcss,
+  SiDocker,
+} from "react-icons/si";
+import { FaJava, FaCode } from "react-icons/fa";
 
 interface TechnologiesProps {
   technologiesPromise: Promise<Itechnologies[]>;
 }
 
+// React Icons & colors
+const techIconMap: Record<string, ReactNode> = {
+  React: <SiReact className="text-[#61DAFB]" />,
+  "Vue.js": <SiVuedotjs className="text-[#4FC08D]" />,
+  Svelte: <SiSvelte className="text-[#FF3E00]" />,
+  "Next.js": <SiNextdotjs className="text-black" />,
+  "Node.js": <SiNodedotjs className="text-[#339933]" />,
+  PostgreSQL: <SiPostgresql className="text-[#4169E1]" />,
+  Redis: <SiRedis className="text-[#DC382D]" />,
+  JavaScript: <SiJavascript className="text-[#F7DF1E]" />,
+  TypeScript: <SiTypescript className="text-[#3178C6]" />,
+  Java: <FaJava className="text-[#5382A1]" />,
+  "Tailwind CSS": <SiTailwindcss className="text-[#06B6D4]" />,
+  Docker: <SiDocker className="text-[#2496ED]" />,
+};
+
+
+const getTechIcon = (name: string): ReactNode => {
+  return techIconMap[name] || <FaCode className="text-gray-500" />;
+};
+
 const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
   const technologies = use(technologiesPromise);
   const [selected, setSelected] = useState<Itechnologies[]>([]);
 
-  // technology selection Add / Remove
   const toggleSelect = (tech: Itechnologies) => {
     const exists = selected.some((item) => item.name === tech.name);
     if (exists) {
@@ -19,18 +56,16 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
     }
   };
 
-  // Remove single technology from stack
   const handleRemove = (techName: string) => {
     setSelected((prev) => prev.filter((item) => item.name !== techName));
   };
 
-  // Clear all selected technologies
   const handleRemoveAll = () => {
     setSelected([]);
   };
 
   return (
-    <section className="mx-auto max-w-7xl px-16 py-8">
+    <section className="mx-auto max-w-7xl px-8 py-8 md:px-16">
       <div className="mb-8">
         <h2 className="text-3xl font-black text-gray-900">
           Explore the{" "}
@@ -44,10 +79,9 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
         </p>
       </div>
 
-      {/* Main Grid & Stack Area */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-        {/* Technology Cards Grid (Takes up 3 columns) */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:col-span-3">
+        {/* Grid */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:col-span-3 lg:grid-cols-3">
           {technologies.map((technology) => {
             const isSelected = selected.some(
               (item) => item.name === technology.name
@@ -62,12 +96,11 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                     : "border-gray-200"
                 }`}
               >
-                {/* Top section */}
                 <div className="mb-4 flex items-start justify-between">
                   <div>
-                    {/* Icon placeholder */}
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-lg font-bold">
-                      {technology.name.charAt(0)}
+                    {/* 3.icon display */}
+                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-2xl">
+                      {getTechIcon(technology.name)}
                     </div>
 
                     <h3 className="text-lg font-bold text-gray-900">
@@ -82,12 +115,10 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                   )}
                 </div>
 
-                {/* Description */}
                 <p className="mb-5 text-xs leading-relaxed text-gray-500">
                   {technology.description}
                 </p>
 
-                {/* Category + Level + Rating */}
                 <div className="mb-5 mt-auto flex items-center justify-between gap-2 text-xs">
                   <span className="rounded-md bg-gray-100 px-2 py-1 font-medium text-gray-600">
                     {technology.category}
@@ -95,13 +126,12 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
 
                   <span className="text-gray-400">{technology.level}</span>
 
-                  <span className="font-semibold text-gray-700 flex items-center gap-1">
+                  <span className="flex items-center gap-1 font-semibold text-gray-700">
                     <span className="text-yellow-400">★</span>
                     {technology.rating}
                   </span>
                 </div>
 
-                {/* Dynamic Button State */}
                 <button
                   type="button"
                   onClick={() => toggleSelect(technology)}
@@ -118,7 +148,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
           })}
         </div>
 
-        {/* Right Side: Your Stack Panel (Takes up 1 column) */}
+        {/* Selected Items */}
         <div className="lg:col-span-1">
           <div className="sticky top-6 flex flex-col rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
             <h4 className="text-lg font-bold text-gray-900">Your Stack</h4>
@@ -127,10 +157,9 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
               {selected.length === 1 ? "Technology" : "Technologies"} Selected
             </p>
 
-            {/* Selected Tech List */}
-            <div className="mb-6 space-y-3 min-h-[100px]">
+            <div className="mb-6 min-h-[100px] space-y-3">
               {selected.length === 0 ? (
-                <p className="text-center py-8 text-xs text-gray-400 border border-dashed border-gray-200 rounded-xl">
+                <p className="rounded-xl border border-dashed border-gray-200 py-8 text-center text-xs text-gray-400">
                   No technologies selected yet.
                 </p>
               ) : (
@@ -140,8 +169,9 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                     className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-2.5"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-xs font-bold text-gray-700 shadow-xs">
-                        {tech.name.charAt(0)}
+        
+                      <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-base shadow-xs">
+                        {getTechIcon(tech.name)}
                       </div>
                       <div>
                         <h5 className="text-xs font-bold text-gray-800">
@@ -156,7 +186,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                     <button
                       type="button"
                       onClick={() => handleRemove(tech.name)}
-                      className="text-gray-400 hover:text-red-500 transition p-1"
+                      className="p-1 text-gray-400 transition hover:text-red-500"
                       title="Remove technology"
                     >
                       ✕
@@ -166,15 +196,14 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
               )}
             </div>
 
-            {/* Clear Button */}
             <button
               type="button"
               disabled={selected.length === 0}
               onClick={handleRemoveAll}
               className={`w-full rounded-xl border py-2.5 text-xs font-medium transition ${
                 selected.length > 0
-                  ? "border-red-100 text-red-500 hover:bg-red-50 cursor-pointer"
-                  : "border-gray-100 text-gray-300 cursor-not-allowed"
+                  ? "cursor-pointer border-red-100 text-red-500 hover:bg-red-50"
+                  : "cursor-not-allowed border-gray-100 text-gray-300"
               }`}
             >
               Remove All
