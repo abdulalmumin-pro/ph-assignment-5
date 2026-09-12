@@ -1,85 +1,124 @@
-import React from "react";
+
 import FooterImg from "../assets/logo-text.png";
 
 const Footer = () => {
   return (
-    <div className="border-t border-gray-300">
-      <div className="flex mx-16 py-8">
-        {/* left side */}
-        <div>
-          <img src={FooterImg} alt="" />
-          <p className="text-gray-600 py-4">
-            Curated tools, technologies, and resources for developers building <br />
-            modern software
+    <footer className="w-full border-t border-gray-200 bg-white">
+      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-10 px-6 py-10 lg:flex-row lg:px-16 lg:py-12">
+        {/* Left Side*/}
+        <div className="max-w-md">
+          <img src={FooterImg} alt="Dev Stack Logo" className="h-8 w-auto" />
+          <p className="py-4 text-xs leading-relaxed text-gray-500 sm:text-sm">
+            Curated tools, technologies, and resources for developers building{" "}
+            <br className="hidden sm:inline" />
+            modern software.
           </p>
-          <ul className="flex text-gray-600 font-bold gap-4 text-[0.8rem]">
+          <ul className="flex items-center gap-5 text-xs font-semibold text-gray-600 sm:text-sm">
             <li>
-              <a href="#">GitHub</a>
+              <a href="#" className="transition-colors hover:text-gray-900">
+                GitHub
+              </a>
             </li>
             <li>
-              <a href="#">Twitter</a>
+              <a href="#" className="transition-colors hover:text-gray-900">
+                Twitter
+              </a>
             </li>
             <li>
-              <a href="#">Linkedin</a>
+              <a href="#" className="transition-colors hover:text-gray-900">
+                LinkedIn
+              </a>
             </li>
           </ul>
         </div>
-        {/* right side */}
-        <div className="flex gap-30 pl-30 pb-8">
+
+        {/* Right Side*/}
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:gap-16">
           <div>
-            <h4 className="font-bold text-[0.8rem]">PRODUCT</h4>
-            <ul className="text-gray-600 pt-4">
+            <h4 className="text-xs font-bold tracking-wider text-gray-900 uppercase">
+              Product
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-gray-500 sm:text-sm">
               <li>
-                <a href="#">Home</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Home
+                </a>
               </li>
               <li>
-                <a href="#">Technologies</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Technologies
+                </a>
               </li>
               <li>
-                <a href="#">Projects</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Projects
+                </a>
               </li>
             </ul>
           </div>
+
           <div>
-            <h4 className="font-bold text-[0.8rem]">COMPANY</h4>
-            <ul className="text-gray-600 pt-4">
+            <h4 className="text-xs font-bold tracking-wider text-gray-900 uppercase">
+              Company
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-gray-500 sm:text-sm">
               <li>
-                <a href="#">About</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  About
+                </a>
               </li>
               <li>
-                <a href="#">contact</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Contact
+                </a>
               </li>
               <li>
-                <a href="#">Careers</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Careers
+                </a>
               </li>
             </ul>
           </div>
+
           <div>
-            <h4 className="font-bold text-[0.8rem]">LEGAL</h4>
-            <ul className="text-gray-600 pt-4">
+            <h4 className="text-xs font-bold tracking-wider text-gray-900 uppercase">
+              Legal
+            </h4>
+            <ul className="mt-4 space-y-2.5 text-xs text-gray-500 sm:text-sm">
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Privacy Policy
+                </a>
               </li>
               <li>
-                <a href="#">Terms of Service</a>
+                <a href="#" className="transition hover:text-gray-900">
+                  Terms of Service
+                </a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      {/* fotter bottom */}
-        <div className="border-t border-gray-300 mx-16 text-gray-500 flex justify-between py-8">
-          <p>&copy;2026 Dev Stack. All rights reserved</p>
-          <ul className="flex gap-4 items-center">
+
+      {/* Bottom Footer Section */}
+      <div className="border-t border-gray-200">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-gray-500 sm:flex-row lg:px-16">
+          <p>© 2026 Dev Stack. All rights reserved.</p>
+          <ul className="flex gap-6">
             <li>
-              <a href="#">Privacy</a>
+              <a href="#" className="transition hover:text-gray-900">
+                Privacy
+              </a>
             </li>
             <li>
-              <a href="#">Terms</a>
+              <a href="#" className="transition hover:text-gray-900">
+                Terms
+              </a>
             </li>
           </ul>
         </div>
-    </div>
+      </div>
+    </footer>
   );
 };
 
