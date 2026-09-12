@@ -9,7 +9,7 @@ const Banner = () => {
       <div className="flex flex-col justify-center md:w-1/2">
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold">
           Built Your Ideal <br />
-          <span className="bg-gradient-to-r from-[#FD5426] via-[#E93755] to-[#8437E3] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#f54615] via-[#E93755] to-[#8437E3] bg-clip-text text-transparent">
             Development Stack
           </span>
         </h1>
@@ -21,7 +21,7 @@ const Banner = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <button className="py-2 px-4 rounded-lg bg-linear-to-r/shorter from-[#F97316] to-[#EC4899]">
+          <button className=" text-white py-2 px-4 rounded-lg bg-linear-to-r/shorter from-[#E93755] to-[#8437E3]">
             Explore Technologies
           </button>
 
