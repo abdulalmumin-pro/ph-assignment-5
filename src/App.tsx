@@ -1,4 +1,6 @@
 import { Suspense } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 import Banner from "./component/Banner";
@@ -16,7 +18,6 @@ const technologiesFeach = async (): Promise<Itechnologies[]> => {
   }
 
   const data = await res.json();
-
   return data;
 };
 
@@ -25,13 +26,12 @@ function App() {
 
   return (
     <>
+      <ToastContainer position="bottom-right" autoClose={2500} hideProgressBar={false} />
       <Nav />
       <Banner />
 
       <Suspense fallback={<p className="p-10 text-center">Loading...</p>}>
-        <Technologies
-          technologiesPromise={technologiesPromise}
-        />
+        <Technologies technologiesPromise={technologiesPromise} />
       </Suspense>
 
       <Footer />

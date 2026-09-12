@@ -1,8 +1,9 @@
 import { use, useState } from "react";
 import type { ReactNode } from "react";
+import { toast } from "react-toastify";
 import type { Itechnologies } from "../type/TechnologiesType";
 
-//specific icons
+// Specific icons
 import {
   SiReact,
   SiVuedotjs,
@@ -38,9 +39,8 @@ const techIconMap: Record<string, ReactNode> = {
   Docker: <SiDocker className="text-[#2496ED]" />,
 };
 
-
 const getTechIcon = (name: string): ReactNode => {
-  return techIconMap[name] || <FaCode className="text-gray-500" />;
+  return techIconMap[name] || <FaCode className="text-gray-500 text-base" />;
 };
 
 const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
@@ -49,19 +49,27 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
 
   const toggleSelect = (tech: Itechnologies) => {
     const exists = selected.some((item) => item.name === tech.name);
+
     if (exists) {
+      // Remove item if already selected
       setSelected((prev) => prev.filter((item) => item.name !== tech.name));
+      toast.info(`Removed ${tech.name} from your stack`);
     } else {
+      // Add item directly (allows multiple technologies from the same category)
       setSelected((prev) => [...prev, tech]);
+      toast.success(`Added ${tech.name} to your stack!`);
     }
   };
 
   const handleRemove = (techName: string) => {
     setSelected((prev) => prev.filter((item) => item.name !== techName));
+    toast.info(`Removed ${techName} from your stack`);
   };
 
   const handleRemoveAll = () => {
+    if (selected.length === 0) return;
     setSelected([]);
+    toast.error("Cleared all technologies from your stack");
   };
 
   return (
@@ -75,7 +83,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
         </h2>
 
         <p className="py-2 text-sm text-gray-500">
-          Pick one technology per category to build your ideal stack.
+          Pick technologies to build your custom stack.
         </p>
       </div>
 
@@ -98,7 +106,6 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
               >
                 <div className="mb-4 flex items-start justify-between">
                   <div>
-                    {/* 3.icon display */}
                     <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 text-2xl">
                       {getTechIcon(technology.name)}
                     </div>
@@ -160,7 +167,7 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
             <div className="mb-6 min-h-[100px] space-y-3">
               {selected.length === 0 ? (
                 <p className="rounded-xl border border-dashed border-gray-200 py-8 text-center text-xs text-gray-400">
-                  No technologies selected yet.
+                  Your stack is empty.
                 </p>
               ) : (
                 selected.map((tech) => (
@@ -169,7 +176,6 @@ const Technologies = ({ technologiesPromise }: TechnologiesProps) => {
                     className="flex items-center justify-between rounded-xl border border-gray-100 bg-gray-50/50 px-3 py-2.5"
                   >
                     <div className="flex items-center gap-3">
-        
                       <div className="flex h-7 w-7 items-center justify-center rounded-md bg-white text-base shadow-xs">
                         {getTechIcon(tech.name)}
                       </div>
